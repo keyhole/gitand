@@ -218,19 +218,18 @@ if (gpio_get_pin_interrupt_flag(GPIO_JOYSTICK_UP))
 	  if (clksel==1)
 	  	{
 	  		  pm_cksel(pm,0,0,0,0,0,0); //(pm,pbadiv,pbasel,pbbdiv,pbbsel,hsbdiv,hsbsel)
-
 	  	}
 
-	  	if (clksel==2)
+	  if (clksel==2)
 	  	{
 	  		  pm_cksel(pm,1,0,0,0,0,0); //(pm,pbadiv,pbasel,pbbdiv,pbbsel,hsbdiv,hsbsel)
 	  	}
 
 	  if (clksel==3)
-	  {
+	  	{
 		  	 pm_cksel(pm,1,1,0,0,0,0); //(pm,pbadiv,pbasel,pbbdiv,pbbsel,hsbdiv,hsbsel)
-
-	  }
+	  	}
+	
 	  gpio_clear_pin_interrupt_flag(GPIO_JOYSTICK_DOWN);
   }
 
@@ -240,26 +239,22 @@ if (gpio_get_pin_interrupt_flag(GPIO_JOYSTICK_UP))
 
   if (gpio_get_pin_interrupt_flag(GPIO_JOYSTICK_LEFT))
   {
-	  gpio_enable_pin_glitch_filter(GPIO_JOYSTICK_LEFT);
-
-	  menu--;
-	  menu = max(menu,1);
-	  first=1;
-    gpio_clear_pin_interrupt_flag(GPIO_JOYSTICK_LEFT);
+	gpio_enable_pin_glitch_filter(GPIO_JOYSTICK_LEFT);
+	menu--;
+	menu = max(menu,1);
+	first=1;
+	gpio_clear_pin_interrupt_flag(GPIO_JOYSTICK_LEFT);
   }
-
-
 
 
 
   if (gpio_get_pin_interrupt_flag(GPIO_JOYSTICK_RIGHT))
   {
-	  gpio_enable_pin_glitch_filter(GPIO_JOYSTICK_RIGHT);
-
-	  menu++;
-	  menu = min(menu,9);
-	  first=1;
-    gpio_clear_pin_interrupt_flag(GPIO_JOYSTICK_RIGHT);
+	gpio_enable_pin_glitch_filter(GPIO_JOYSTICK_RIGHT);
+	menu++;
+	menu = min(menu,9);
+	first=1;
+	gpio_clear_pin_interrupt_flag(GPIO_JOYSTICK_RIGHT);
   }
 
 
@@ -269,10 +264,8 @@ if (gpio_get_pin_interrupt_flag(GPIO_JOYSTICK_UP))
 
   if (gpio_get_pin_interrupt_flag(GPIO_JOYSTICK_PUSH))
   {
-
-
-		joy_pressed = 1;
-		gpio_clear_pin_interrupt_flag(GPIO_JOYSTICK_PUSH);
+	joy_pressed = 1;
+	gpio_clear_pin_interrupt_flag(GPIO_JOYSTICK_PUSH);
   }
 
 
@@ -353,57 +346,35 @@ unsigned long u32CountVal,u32CompareVal;
  * Ansi C "itoa" based on Kernighan & Ritchie's "Ansi C":
 
  */
-void strreverse(char* begin, char* end) {
-
+void strreverse(char* begin, char* end) 
+{
 	char aux;
 
 	while(end>begin)
-
-		aux=*end, *end--=*begin, *begin++=aux;
-
+	aux=*end, *end--=*begin, *begin++=aux;
 }
 
-void itoa(int value, char* str, int base) {
-
+void itoa(int value, char* str, int base)
+{
 	static char num[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
 	char* wstr=str;
-
 	int sign;
 
-
-
 	// Validate base
-
-	if (base<2 || base>35){ *wstr='\0'; return; }
-
-
-
+	if (base<2 || base>35){ *wstr='\0'; return;
 	// Take care of sign
-
 	if ((sign=value) < 0) value = -value;
-
-
-
 	// Conversion. Number is reversed.
-
 	do *wstr++ = num[value%base]; while(value/=base);
-
 	if(sign<0) *wstr++='-';
-
 	*wstr='\0';
-
-
-
 	// Reverse string
-
 	strreverse(str,wstr-1);
-
 }
 
 int add(int a, int b)
 {
-  return a + b;
+	return a + b;
 }
 
 
